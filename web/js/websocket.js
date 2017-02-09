@@ -1,6 +1,7 @@
 $(document).ready(function(){
     var rotation=0;
-    var movimiento=0;
+    
+    $('span#pos').value=$("#ball").offset().left;
     
     var wsUri="ws://"+document.location.host+document.location.pathname+"rope"; 
     var websocket = new WebSocket(wsUri);
@@ -11,7 +12,7 @@ $(document).ready(function(){
     websocket.onerror=function(evt){onError(evt);};
     
     //Se envia el movimiento
-    function send_move(){
+    function send_move(movimiento){
         websocket.send(movimiento);   
     }
     
@@ -28,16 +29,12 @@ $(document).ready(function(){
     
     $("body").keyup(function(e) {
         if(e.keyCode === 39) {  //right
-            movimiento=39;
-            send_move();
-            mover(movimiento);
+            send_move(39);
         }
     });
     $("body").keyup(function(e) {
         if(e.keyCode === 37) { //left
-            movimiento=37;
-            send_move();
-            mover(movimiento);
+            send_move(37);
         }
     });
     
