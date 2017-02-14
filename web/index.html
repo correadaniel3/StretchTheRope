@@ -8,14 +8,23 @@
         <script src="js/jQueryRotate.js" type="text/javascript"></script>
         <script src="js/websocket.js" type="text/javascript"></script>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
+        <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
     </head>
     <body>
+        <h1>Stretch The Rope</h1>
         <div id="content">
             <span id="pos"></span>
             <div id="board">
-                <img id="left" class="barras" src="img/l.PNG" alt=""/>
-                <img id="ball" src="img/ball.png" alt=""/>
-                <img id="right" class="barras" src="img/r.PNG" alt=""/>
+                <div id="background">
+                    <div id="leftBackground"></div>
+                    <div id="rightBackground"></div>
+                </div>
+                <img id="left" class="barras" src="img/l.PNG">
+                <img id="ball" src="img/ball.png">
+                <img id="right" class="barras" src="img/r.PNG">
+            </div>
+            <div id="mobileButtons">
+                <img src="img/leftButton.png" class="arrow" id="leftButton"><img src="img/rightButton.png" class="arrow" id="rightButton">
             </div>
         </div>
     </body>
