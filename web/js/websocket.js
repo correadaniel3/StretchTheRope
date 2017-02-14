@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        $('.arrow').css('display','initial');
+    }
+
     var rotation=0;  
     var wsUri="ws://"+document.location.host+document.location.pathname+"rope"; 
     var websocket = new WebSocket(wsUri);
@@ -50,6 +54,13 @@ $(document).ready(function(){
         }
     });
     
+    $('rightButton').click(function () {
+        send_move(39);
+    });
+    $('leftButton').click(function () {
+        send_move(37);
+    });
+
     function mover(direccion){
         if(direccion==39){
             $("#ball").offset({top: $("#ball").offset().top,left:$("#ball").offset().left+20});
@@ -62,9 +73,7 @@ $(document).ready(function(){
             rotation-=30;
         }
     }
-    
-    function checkCollision(){
-        
-    }
 });
+
+
 
