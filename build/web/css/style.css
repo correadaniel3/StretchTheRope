@@ -87,5 +87,9 @@ div#mobileButtons{
 #overlay h1, #overlay h3{
     color: white;
 }
+.marcador{
+    font-size: 7em;
+    color:rgba(0, 0, 0, 0.5);
+}
 
 

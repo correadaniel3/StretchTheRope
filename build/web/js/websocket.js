@@ -19,10 +19,12 @@ $(document).ready(function(){
     
     //funciones para el ingreso de usuarios
     function onOpen(evt){
+
     }
     function onError(evt){
     }
     
+
     //funcion para mover la bola al recibir la informacion
     function onMessage(evt){
         aux=evt.data;
@@ -91,7 +93,7 @@ $(document).ready(function(){
             $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
         }
         if($("#ball").offset().left<$("#left").offset().left-47){
-           // alert("Gano Green");
+            $("#marcadorL").html(parseInt($("#marcadorL").html())+1);
              $("#ball").css("left","350px");
              $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
              flag=false;
@@ -99,7 +101,7 @@ $(document).ready(function(){
              $("#overlay").show();
         }
         if($("#ball").offset().left>$("#right").offset().left+15){
-            //alert("Gano Red");
+            $("#marcadorR").html(parseInt($("#marcadorR").html())+1);
             $("#ball").css("left","350px");
             $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
             flag=false;
@@ -108,8 +110,8 @@ $(document).ready(function(){
         }
     }
     function conteo(){
-        enConteo=true;
         var cont=3;
+        enConteo=true;
         $("#contador").html(cont); 
         var atras = setInterval(function(){
             cont-=1 ;
