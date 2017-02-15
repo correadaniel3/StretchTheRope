@@ -2,11 +2,10 @@ $(document).ready(function(){
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
         $('.arrow').css('display','initial');
     }
-
+    var flag=false;
     var rotation=0;  
     var wsUri="ws://"+document.location.host+document.location.pathname+"rope"; 
     var websocket = new WebSocket(wsUri);
-    
     //se inicializan los metodos principales del web socket
     websocket.onopen=function(evt){onOpen(evt);};
     websocket.onmessage=function(evt){onMessage(evt);};
@@ -20,19 +19,15 @@ $(document).ready(function(){
     //funciones para el ingreso de usuarios
     function onOpen(evt){
     }
+    function onError(evt){
+    }
     
     //funcion para mover la bola al recibir la informacion
     function onMessage(evt){
         aux=evt.data;
         //console.log(aux);
-        if(aux!=116){
+        if(aux!=116 && flag){
             mover(aux);
-        }else if(aux==0){
-            alert("Ya hay 2 jugadores en partida, intenta más tarde!!");
-        }else if(aux==1){
-            alert("Jugador 1, mueve hacia la izquierda con la tecla A");
-        }else if(aux==2){
-            alert("Jugador 2, mueve hacia la derecha con la tecla D");
         }else{
             location.reload();
         }
@@ -86,6 +81,16 @@ $(document).ready(function(){
         else{
             $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
             $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
+        }
+        if($("#ball").offset().left<$("#left").offset().left-47){
+            alert("Gano Green");
+             $("#ball").css("left","350px");
+             $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
+        }
+        if($("#ball").offset().left>$("#right").offset().left+15){
+            alert("Gano Red");
+            $("#ball").css("left","350px");
+            $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
         }
     }
 });
