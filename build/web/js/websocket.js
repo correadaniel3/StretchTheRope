@@ -3,6 +3,7 @@ $(document).ready(function(){
         $('.arrow').css('display','initial');
     }
     var flag=false;
+    var enConteo=false;
     var rotation=0;  
     var wsUri="ws://"+document.location.host+document.location.pathname+"rope"; 
     var websocket = new WebSocket(wsUri);
@@ -26,11 +27,11 @@ $(document).ready(function(){
     function onMessage(evt){
         aux=evt.data;
         //console.log(aux);
-        if(aux!=116 && flag){
-            mover(aux);
-        }else if(aux==32 && !flag){
+        if(aux==32 && !flag && !enConteo){
             conteo();
-        }else{
+        }else if(aux!=116 && flag){
+            mover(aux);
+        }else if(aux==116){
             location.reload();
         }
     }
@@ -90,26 +91,36 @@ $(document).ready(function(){
             $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
         }
         if($("#ball").offset().left<$("#left").offset().left-47){
-            alert("Gano Green");
+           // alert("Gano Green");
              $("#ball").css("left","350px");
              $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
+             flag=false;
+             $("#contador").html(3); 
+             $("#overlay").show();
         }
         if($("#ball").offset().left>$("#right").offset().left+15){
-            alert("Gano Red");
+            //alert("Gano Red");
             $("#ball").css("left","350px");
             $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
+            flag=false;
+            $("#contador").html(3); 
+            $("#overlay").show();
         }
     }
     function conteo(){
+        enConteo=true;
         var cont=3;
-        while(cont>0){
-            setTimeout(function(){
-                $("#contador").html(str(cont)); 
-                cont-=1;
-            }, 1000);
-        }
-        $("#overlay").hide();
-        flag=true;
+        $("#contador").html(cont); 
+        var atras = setInterval(function(){
+            cont-=1 ;
+            $("#contador").html(cont);           
+            if(cont===0){
+                $("#overlay").hide();
+                flag=true;
+                enConteo=false;
+                clearInterval(atras);
+            }
+        }, 1000);
     }
 });
 
