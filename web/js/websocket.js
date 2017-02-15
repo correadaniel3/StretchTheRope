@@ -4,7 +4,8 @@ $(document).ready(function(){
     }
 
     var rotation=0;  
-    var wsUri="wss://"+document.location.host+document.location.pathname+"rope"; 
+    //var wsUri="wss://"+document.location.host+document.location.pathname+"rope"; 
+    var wsUri="wss://correadaniel3.github.io/StretchTheRope/rope"; 
     alert(wsUri);
     var websocket = new WebSocket(wsUri);
     
