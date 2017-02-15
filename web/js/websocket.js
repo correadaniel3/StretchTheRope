@@ -28,6 +28,8 @@ $(document).ready(function(){
         //console.log(aux);
         if(aux!=116 && flag){
             mover(aux);
+        }else if(aux==32 && !flag){
+            conteo();
         }else{
             location.reload();
         }
@@ -47,6 +49,11 @@ $(document).ready(function(){
     $("body").keydown(function(e) {
         if(e.keyCode === 116) { //reload
             send_move(116);
+        }
+    });
+    $("body").keyup(function(e) {
+        if(e.keyCode === 32) {  //space - conteo
+            send_move(32);
         }
     });
     
@@ -92,6 +99,17 @@ $(document).ready(function(){
             $("#ball").css("left","350px");
             $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
         }
+    }
+    function conteo(){
+        var cont=3;
+        while(cont>0){
+            setTimeout(function(){
+                $("#contador").html(str(cont)); 
+                cont-=1;
+            }, 1000);
+        }
+        $("#overlay").hide();
+        flag=true;
     }
 });
 
