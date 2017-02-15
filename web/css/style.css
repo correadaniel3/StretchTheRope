@@ -36,23 +36,22 @@ div#mobileButtons{
     margin-right: 85px;
 }
 .arrow{
-    //display: none;
+    display: none;
 }
 #background{
-    width: 100%;
     position: absolute;
     z-index: -1;
     display: flex;
 }
 #leftBackground{
-    background-color: rgba(38, 128, 38, 0.3);;
+    background-color: rgba(38, 128, 38, 0.3);
     height: 400px;
     width: 398px;
     margin-left: 2px;
     border-radius: 20px 0px 0px 20px;
 }
 #rightBackground{
-    background-color: rgba(189, 27, 46, 0.3);;
+    background-color: rgba(189, 27, 46, 0.3);
     height: 400px;
     width: 398px;
     margin-right: 2px;

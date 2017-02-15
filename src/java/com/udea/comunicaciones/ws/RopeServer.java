@@ -32,30 +32,30 @@ public class RopeServer {
     public void onOpen(Session peer) throws IOException, EncodeException{
         //Adicionamos un nuevo peer a la colección
         peers.add(peer);
-        if(peers.toArray().length==1){
-            player1=peer;
-            onMessage("1",peer);
-        }else if(peers.toArray().length==2){
-            player2=peer;
-            onMessage("2",peer);
-        }else{
-            onMessage("0",peer);
-        }
+//        if(peers.toArray().length==1){
+//            player1=peer;
+//            onMessage("1",peer);
+//        }else if(peers.toArray().length==2){
+//            player2=peer;
+//            onMessage("2",peer);
+//        }else{
+//            onMessage("0",peer);
+//        }
     }
     @OnMessage
     public void onMessage(String message, Session client) throws IOException, EncodeException {
-        if(player1!=null && player2!=null){
-            for(Session peer:peers){
+//        if(player1!=null && player2!=null){
+           for(Session peer:peers){
                peer.getBasicRemote().sendObject(message);
             }
-        }else{
-            client.getBasicRemote().sendObject("0");
-        }
+//        }else{
+//            client.getBasicRemote().sendObject("0");
+//        }
     }
     @OnClose
     public void onClose(Session peer){
         peers.remove(peer);
-        ids.remove(peer.getId());
+//        ids.remove(peer.getId());
     }
     
 }

@@ -24,7 +24,7 @@ $(document).ready(function(){
     //funcion para mover la bola al recibir la informacion
     function onMessage(evt){
         aux=evt.data;
-        console.log(aux);
+        //console.log(aux);
         if(aux!=116){
             mover(aux);
         }else if(aux==0){
@@ -47,6 +47,7 @@ $(document).ready(function(){
         if(e.keyCode === 65) { //left
             send_move(37);
         }
+
     });
     $("body").keydown(function(e) {
         if(e.keyCode === 116) { //reload
@@ -54,14 +55,15 @@ $(document).ready(function(){
         }
     });
     
-    $('rightButton').click(function () {
+    $('#rightButton').on("click touch",function () {
         send_move(39);
     });
-    $('leftButton').click(function () {
+    $('#leftButton').on("click touch",function () {
         send_move(37);
     });
+    
 
-    function mover(direccion){
+    function mover(direccion){       
         if(direccion==39){
             $("#ball").offset({top: $("#ball").offset().top,left:$("#ball").offset().left+20});
             $("#ball").rotate({angle:rotation,animateTo:rotation+30});
@@ -71,6 +73,19 @@ $(document).ready(function(){
             $("#ball").offset({top: $("#ball").offset().top,left:$("#ball").offset().left-20});
             $("#ball").rotate({angle:rotation,animateTo:rotation-30});
             rotation-=30;
+        }
+        var position=$("#ball").css("left").substring(0,$("#ball").css("left").length-2);
+        if( position>350){
+            $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.6)");
+            $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
+        }
+        else if( position<350){
+            $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.6)");
+            $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
+        }
+        else{
+            $("#rightBackground").css("background-color","rgba(189, 27, 46, 0.3)");
+            $("#leftBackground").css("background-color","rgba(38, 128, 38, 0.3)");
         }
     }
 });
