@@ -20,6 +20,8 @@ $(document).ready(function(){
     //funciones para el ingreso de usuarios
     function onOpen(evt){
     }
+    function onError(evt){
+    }
     
     //funcion para mover la bola al recibir la informacion
     function onMessage(evt){
