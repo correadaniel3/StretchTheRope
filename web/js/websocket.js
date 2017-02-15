@@ -5,6 +5,7 @@ $(document).ready(function(){
 
     var rotation=0;  
     var wsUri="wss://"+document.location.host+document.location.pathname+"rope"; 
+    alert(wsUri);
     var websocket = new WebSocket(wsUri);
     
     //se inicializan los metodos principales del web socket
