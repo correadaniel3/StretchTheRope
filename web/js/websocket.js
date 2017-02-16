@@ -28,8 +28,14 @@ $(document).ready(function(){
     //funcion para mover la bola al recibir la informacion
     function onMessage(evt){
         aux=evt.data;
-        //console.log(aux);
-        if(aux==32 && !flag && !enConteo){
+        if(aux==1){
+            $('#playerText').html('Jugador Verde, Presione Espacio Para Moverse');
+            return;
+        }else if(aux==2){
+            $('#playerText').html('Jugador Rojo, Presione Espacio Para Moverse');
+            return;
+        }
+        if(aux==13 && !flag && !enConteo){
             conteo();
         }else if(aux!=116 && flag){
             mover(aux);
@@ -38,25 +44,19 @@ $(document).ready(function(){
         }
     }
     
-    $("body").keyup(function(e) {
-        if(e.keyCode === 68) {  //right
-            send_move(39);
-        }
-    });
-    $("body").keyup(function(e) {
-        if(e.keyCode === 65) { //left
-            send_move(37);
-        }
-
-    });
     $("body").keydown(function(e) {
         if(e.keyCode === 116) { //reload
             send_move(116);
         }
     });
     $("body").keyup(function(e) {
-        if(e.keyCode === 32) {  //space - conteo
+        if(e.keyCode === 32) {  //space - movimiento
             send_move(32);
+        }
+    });
+    $("body").keyup(function(e) {
+        if(e.keyCode === 13) {  //intro - conteo
+            send_move(13);
         }
     });
     

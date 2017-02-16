@@ -6,10 +6,8 @@
 package com.udea.comunicaciones.ws;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -24,38 +22,45 @@ import javax.websocket.server.ServerEndpoint;
  */
 @ServerEndpoint("/rope")
 public class RopeServer {
- //Creamos la lista de peers para usar el endpoint
     private static final Set<Session> peers = Collections.synchronizedSet(new HashSet<Session>());
     private Session player1=null, player2=null;
-    private List ids = new ArrayList();
     @OnOpen
     public void onOpen(Session peer) throws IOException, EncodeException{
-        //Adicionamos un nuevo peer a la colección
-        peers.add(peer);
-//        if(peers.toArray().length==1){
-//            player1=peer;
-//            onMessage("1",peer);
-//        }else if(peers.toArray().length==2){
-//            player2=peer;
-//            onMessage("2",peer);
-//        }else{
-//            onMessage("0",peer);
-//        }
+        if(peer.getOpenSessions().size()==1){
+            player1=(Session)peer.getOpenSessions().toArray()[0];
+            player1.getBasicRemote().sendObject("1");
+            peers.add(peer);
+        }else if(peer.getOpenSessions().size()==2){
+            player2=(Session)peer.getOpenSessions().toArray()[1];
+            player2.getBasicRemote().sendObject("2");
+            peers.add(peer);
+        }else{
+            peer.close();
+        }
     }
     @OnMessage
     public void onMessage(String message, Session client) throws IOException, EncodeException {
-//        if(player1!=null && player2!=null){
-           for(Session peer:peers){
-               peer.getBasicRemote().sendObject(message);
+        if(message.equals("32")){
+            if(player1!=null){
+                for(Session peer:peers){
+                    peer.getBasicRemote().sendObject("37");
+                }
+            }else{
+                for(Session peer:peers){
+                    peer.getBasicRemote().sendObject("39");
+                }
             }
-//        }else{
-//            client.getBasicRemote().sendObject("0");
-//        }
+        }else{
+            for(Session peer:peers){
+                peer.getBasicRemote().sendObject(message);
+            }
+        }
     }
     @OnClose
     public void onClose(Session peer){
         peers.remove(peer);
-//        ids.remove(peer.getId());
+        player1=null;
+        player2=null;
     }
     
 }
