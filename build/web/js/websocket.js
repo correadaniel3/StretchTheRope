@@ -32,7 +32,11 @@ $(document).ready(function(){
             $('#playerText').html('Jugador Verde, Presione Espacio Para Moverse');
             return;
         }else if(aux==2){
-            $('#playerText').html('Jugador Rojo, Presione Espacio Para Moverse');
+            $('#playerText').html('Jugador Rojo, Presione Espacio Para Moverse\nEnter para comenzar');
+            return;
+        }else if(aux==3){
+            $('#playerText').html('Ya hay dos jugadores en partida intente de nuevo mas tarde');
+            $('#contador').hide();
             return;
         }
         if(aux==13 && !flag && !enConteo){

@@ -30,12 +30,16 @@ public class RopeServer {
             player1=(Session)peer.getOpenSessions().toArray()[0];
             player1.getBasicRemote().sendObject("1");
             peers.add(peer);
+            System.out.println("1hola");
         }else if(peer.getOpenSessions().size()==2){
             player2=(Session)peer.getOpenSessions().toArray()[1];
             player2.getBasicRemote().sendObject("2");
             peers.add(peer);
+            System.out.println("2hola");
         }else{
-            peer.close();
+            System.out.println("3hola");
+            peer.getBasicRemote().sendObject("3");
+            peer.close();    
         }
     }
     @OnMessage
@@ -50,6 +54,12 @@ public class RopeServer {
                     peer.getBasicRemote().sendObject("39");
                 }
             }
+        }else if(message.equals("13")){
+            if(player1==null){
+                for(Session peer:peers){
+                    peer.getBasicRemote().sendObject("13");
+                }
+            }
         }else{
             for(Session peer:peers){
                 peer.getBasicRemote().sendObject(message);
@@ -57,7 +67,7 @@ public class RopeServer {
         }
     }
     @OnClose
-    public void onClose(Session peer){
+    public void onClose(Session peer) throws IOException, EncodeException{
         peers.remove(peer);
         player1=null;
         player2=null;
